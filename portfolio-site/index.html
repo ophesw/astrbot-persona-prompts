@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="陈墨的个人主页 —— 独立开发者与产品创作者。作品集、技能展示，以及可下载的软件与产品。" />
+<title>陈墨 · 独立开发者主页</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-soft: #11111a;
+    --card: rgba(255, 255, 255, 0.04);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text: #e8e8f0;
+    --text-dim: #9a9aae;
+    --text-mute: #6b6b80;
+    --accent: #7c5cff;
+    --accent-2: #22d3ee;
+    --accent-3: #f472b6;
+    --success: #34d399;
+    --radius: 16px;
+    --max: 1120px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* animated background */
+  .bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+    z-index: -1;
+    pointer-events: none;
+    animation: float 18s ease-in-out infinite;
+  }
+  .orb-1 { width: 520px; height: 520px; background: var(--accent); top: -160px; left: -120px; }
+  .orb-2 { width: 460px; height: 460px; background: var(--accent-2); top: 30%; right: -140px; animation-delay: -6s; }
+  .orb-3 { width: 420px; height: 420px; background: var(--accent-3); bottom: -140px; left: 30%; animation-delay: -12s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.08); }
+  }
+
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(10, 10, 15, 0.6);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .nav-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 26px; list-style: none; }
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  @media (max-width: 640px) {
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 13px; }
+  }
+
+  /* hero */
+  .hero {
+    padding: 110px 0 90px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 26px;
+  }
+  .badge .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+  h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+  }
+  h1 .grad {
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p.lead {
+    font-size: clamp(16px, 2.4vw, 20px);
+    color: var(--text-dim);
+    max-width: 620px;
+    margin: 0 auto 36px;
+  }
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #5b3fd6);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(124, 92, 255, 0.5); }
+  .btn-ghost {
+    background: var(--card);
+    border-color: var(--card-border);
+    color: var(--text);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+  /* sections */
+  section { padding: 80px 0; }
+  .section-head { margin-bottom: 44px; }
+  .section-tag {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-2);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  /* about */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .about-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 30px;
+  }
+  .about-card p { color: var(--text-dim); margin-bottom: 14px; }
+  .about-card p:last-child { margin-bottom: 0; }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 22px;
+    text-align: center;
+  }
+  .stat .num {
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat .label { font-size: 13px; color: var(--text-mute); margin-top: 4px; }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+
+  /* skills */
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    color: var(--text-dim);
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+  .tag:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* projects */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .project {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 26px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .project:hover { transform: translateY(-4px); border-color: rgba(124, 92, 255, 0.5); }
+  .project .icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, rgba(124,92,255,0.2), rgba(34,211,238,0.15));
+  }
+  .project h3 { font-size: 18px; margin-bottom: 8px; }
+  .project p { color: var(--text-dim); font-size: 14px; }
+
+  /* downloads */
+  .downloads {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .dl-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .dl-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34, 211, 238, 0.5);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+  .dl-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .dl-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  }
+  .dl-title { font-size: 17px; font-weight: 600; }
+  .dl-meta { font-size: 12px; color: var(--text-mute); margin-top: 2px; }
+  .dl-desc { color: var(--text-dim); font-size: 14px; flex: 1; margin-bottom: 18px; }
+  .dl-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .dl-size { font-size: 12px; color: var(--text-mute); }
+  .dl-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 16px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent-2), #0ea5c4);
+    color: #06121a;
+    font-weight: 700; font-size: 13px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: transform 0.15s, filter 0.2s;
+  }
+  .dl-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+  .dl-note {
+    margin-top: 24px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(34, 211, 238, 0.06);
+    border: 1px solid rgba(34, 211, 238, 0.18);
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* contact / footer */
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 50px 0 40px;
+    text-align: center;
+    color: var(--text-mute);
+    font-size: 14px;
+  }
+  .social { display: flex; gap: 16px; justify-content: center; margin-bottom: 18px; }
+  .social a {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .social a:hover { color: var(--text); border-color: var(--accent); transform: translateY(-2px); }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  ::selection { background: rgba(124, 92, 255, 0.4); }
+</style>
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">◆ 陈墨</div>
+      <ul class="nav-links">
+        <li><a href="#about">关于</a></li>
+        <li><a href="#skills">技能</a></li>
+        <li><a href="#projects">作品</a></li>
+        <li><a href="#downloads">下载</a></li>
+        <li><a href="#contact">联系</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <span class="badge"><span class="dot"></span>正在接受新的合作与委托</span>
+      <h1>你好，我是 <span class="grad">陈墨</span><br/>独立开发者 & 产品创作者</h1>
+      <p class="lead">专注于打造简洁、高效、有温度的数字产品。从桌面工具到 Web 应用，用代码把想法变成可被使用的现实。</p>
+      <div class="hero-actions">
+        <a href="#downloads" class="btn btn-primary">⬇ 浏览可下载产品</a>
+        <a href="#projects" class="btn btn-ghost">查看作品集 →</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-tag">ABOUT</div>
+        <h2>关于我</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <p>我是一名拥有 8 年经验的全栈独立开发者，热衷于将复杂的需求拆解为优雅的解决方案。过去几年里，我发布了多款桌面与 Web 产品，累计服务超过 50,000 名用户。</p>
+          <p>我相信好的产品应当「打开即用」——不需要教程，没有多余的步骤。无论是效率工具、创意软件还是行业应用，我都追求同样的标准：稳定、快速、令人愉悦。</p>
+          <p>工作之余，我会写技术博客、参与开源项目，并在这个页面分享我做的软件，欢迎自由下载使用。</p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><div class="num">8+</div><div class="label">年开发经验</div></div>
+          <div class="stat"><div class="num">12</div><div class="label">已发布产品</div></div>
+          <div class="stat"><div class="num">50K+</div><div class="label">累计用户</div></div>
+          <div class="stat"><div class="num">99%</div><div class="label">好评率</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-tag">SKILLS</div>
+        <h2>技能栈</h2>
+      </div>
+      <div class="skill-tags reveal">
+        <span class="tag">JavaScript / TypeScript</span>
+        <span class="tag">React / Vue</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Electron</span>
+        <span class="tag">Python</span>
+        <span class="tag">Go</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Docker</span>
+        <span class="tag">UI / UX 设计</span>
+        <span class="tag">产品设计</span>
+        <span class="tag">系统架构</span>
+        <span class="tag">性能优化</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-tag">PROJECTS</div>
+        <h2>精选作品</h2>
+      </div>
+      <div class="projects">
+        <div class="project reveal">
+          <div class="icon">⚡</div>
+          <h3>QuickFlow</h3>
+          <p>极简的任务与时间管理工具，帮助团队把注意力聚焦在真正重要的事情上。</p>
+        </div>
+        <div class="project reveal">
+          <div class="icon">🎨</div>
+          <h3>Palette Studio</h3>
+          <p>为设计师打造的智能配色与素材管理桌面应用，支持 AI 辅助生成色板。</p>
+        </div>
+        <div class="project reveal">
+          <div class="icon">📊</div>
+          <h3>DataLens</h3>
+          <p>轻量级数据可视化平台，拖拽即可生成交互式仪表盘，支持多种数据源。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="downloads">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-tag">DOWNLOADS</div>
+        <h2>产品与软件下载</h2>
+      </div>
+      <div class="downloads" id="downloadList">
+        <!-- cards injected by JS -->
+      </div>
+      <div class="dl-note reveal">
+        💡 以上为示例产品文件。你可以将自己的软件安装包、文档等放入站点的 <code>downloads/</code> 目录，并在页面列表中添加对应的卡片，访客即可直接下载。
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="social reveal">
+        <a href="mailto:hello@example.com" title="邮箱">✉</a>
+        <a href="#" title="GitHub">⌥</a>
+        <a href="#" title="微博">◐</a>
+        <a href="#" title="RSS">≡</a>
+      </div>
+      <p>© 2026 陈墨 · 独立开发者主页 · 用 ❤ 打造</p>
+    </div>
+  </footer>
+
+<script>
+  // download product list — edit this array to add / remove products
+  const products = [
+    {
+      icon: "⚡",
+      title: "QuickFlow 桌面版",
+      version: "v1.2.0",
+      platform: "Windows · macOS",
+      desc: "极简任务与时间管理工具，本地优先、开箱即用。本压缩包内含完整程序与使用说明。",
+      file: "downloads/quickflow-v1.2.0.zip",
+      size: "2.4 MB"
+    },
+    {
+      icon: "📘",
+      title: "产品使用手册",
+      version: "2026 版",
+      platform: "PDF 文档",
+      desc: "全部已发布产品的功能说明与常见问题解答，适合新用户快速上手。",
+      file: "downloads/product-manual.md",
+      size: "12 KB"
+    },
+    {
+      icon: "🔄",
+      title: "更新日志",
+      version: "最新",
+      platform: "文本",
+      desc: "记录每个版本的新功能、改进与修复，透明公开产品演进过程。",
+      file: "downloads/changelog.txt",
+      size: "3 KB"
+    }
+  ];
+
+  const list = document.getElementById("downloadList");
+  products.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "dl-card reveal";
+    card.innerHTML = `
+      <div class="dl-head">
+        <div class="dl-icon">${p.icon}</div>
+        <div>
+          <div class="dl-title">${p.title}</div>
+          <div class="dl-meta">${p.version} · ${p.platform}</div>
+        </div>
+      </div>
+      <div class="dl-desc">${p.desc}</div>
+      <div class="dl-footer">
+        <span class="dl-size">${p.size}</span>
+        <a class="dl-btn" href="${p.file}" download>⬇ 下载</a>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
