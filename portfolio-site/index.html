@@ -3,362 +3,453 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="陈墨的个人主页 —— 独立开发者与产品创作者。作品集、技能展示，以及可下载的软件与产品。" />
-<title>陈墨 · 独立开发者主页</title>
+<meta name="description" content="梅露可魔法工房 —— 在日常里调制一点小小的魔法。独立开发的创意工具、手作作品与可下载的工坊出品。" />
+<title>梅露可魔法工房 · Meruko's Magic Atelier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet" />
 <style>
+  /* ============ Morandi + ins 极简 设计系统 ============ */
   :root {
-    --bg: #0a0a0f;
-    --bg-soft: #11111a;
-    --card: rgba(255, 255, 255, 0.04);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --text: #e8e8f0;
-    --text-dim: #9a9aae;
-    --text-mute: #6b6b80;
-    --accent: #7c5cff;
-    --accent-2: #22d3ee;
-    --accent-3: #f472b6;
-    --success: #34d399;
-    --radius: 16px;
-    --max: 1120px;
+    /* 纸张底色 */
+    --bg: #F4EFE7;
+    --bg-soft: #EDE6D9;
+    --surface: #FBF8F2;
+    --surface-2: #F1EADB;
+
+    /* 文字 —— 暖灰褐，不用纯黑 */
+    --text: #3F3A33;
+    --text-dim: #8A8074;
+    --text-mute: #AFA495;
+
+    /* 发丝线 */
+    --line: #E3D9C8;
+    --line-soft: #ECE3D3;
+
+    /* 莫兰迪低饱和点缀色 */
+    --rose: #C4A09C;   /* 灰粉 */
+    --sage: #A6B29A;   /* 鼠尾草绿 */
+    --blue: #A5B0BE;   /* 雾蓝 */
+    --sand: #CBBFA2;   /* 暖沙 */
+    --mauve: #B6A5B3;  /* 灰紫 */
+    --clay: #C0A28A;   /* 陶土 */
+
+    --radius: 18px;
+    --radius-sm: 12px;
+    --max: 1080px;
+    --shadow-soft: 0 1px 2px rgba(63, 58, 51, 0.04), 0 8px 24px rgba(63, 58, 51, 0.06);
+    --shadow-hover: 0 2px 4px rgba(63, 58, 51, 0.05), 0 16px 40px rgba(63, 58, 51, 0.10);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-      "Hiragino Sans GB", "Microsoft YaHei", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+      -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
+    line-height: 1.8;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.01em;
   }
 
-  /* animated background */
-  .bg-orb {
+  /* 纸纹颗粒 —— 极淡，营造纸张质感 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+
+  /* 背景中漂浮的莫兰迪色团 —— 极淡 */
+  .blob {
     position: fixed;
     border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.35;
-    z-index: -1;
+    filter: blur(70px);
+    z-index: 0;
     pointer-events: none;
-    animation: float 18s ease-in-out infinite;
+    opacity: 0.45;
+    animation: drift 24s ease-in-out infinite;
   }
-  .orb-1 { width: 520px; height: 520px; background: var(--accent); top: -160px; left: -120px; }
-  .orb-2 { width: 460px; height: 460px; background: var(--accent-2); top: 30%; right: -140px; animation-delay: -6s; }
-  .orb-3 { width: 420px; height: 420px; background: var(--accent-3); bottom: -140px; left: 30%; animation-delay: -12s; }
-
-  @keyframes float {
+  .blob-1 { width: 460px; height: 460px; background: var(--rose);  top: -140px; left: -120px; }
+  .blob-2 { width: 400px; height: 400px; background: var(--blue);  top: 35%; right: -130px; animation-delay: -8s; }
+  .blob-3 { width: 380px; height: 380px; background: var(--sage);  bottom: -120px; left: 25%; animation-delay: -16s; }
+  @keyframes drift {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(40px, -30px) scale(1.08); }
+    50%      { transform: translate(30px, -26px) scale(1.06); }
   }
 
-  .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
-  /* nav */
+  /* ============ 导航 ============ */
   nav {
     position: sticky;
     top: 0;
     z-index: 50;
-    backdrop-filter: blur(14px);
-    background: rgba(10, 10, 15, 0.6);
-    border-bottom: 1px solid var(--card-border);
+    backdrop-filter: blur(10px);
+    background: rgba(244, 239, 231, 0.72);
+    border-bottom: 1px solid var(--line-soft);
   }
   .nav-inner {
     max-width: var(--max);
     margin: 0 auto;
-    padding: 14px 24px;
+    padding: 16px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
   .logo {
-    font-weight: 700;
-    font-size: 18px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 0.5px;
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .nav-links { display: flex; gap: 26px; list-style: none; }
+  .logo .spark { color: var(--rose); font-size: 14px; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
   .nav-links a {
     color: var(--text-dim);
     text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
+    font-size: 13.5px;
+    letter-spacing: 0.08em;
+    transition: color 0.25s;
   }
   .nav-links a:hover { color: var(--text); }
   @media (max-width: 640px) {
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 13px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 12.5px; }
+    .logo { font-size: 16px; }
   }
 
-  /* hero */
+  /* ============ Hero ============ */
   .hero {
-    padding: 110px 0 90px;
+    padding: 120px 0 100px;
     text-align: center;
   }
-  .badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: var(--card);
-    border: 1px solid var(--card-border);
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
     color: var(--text-dim);
-    font-size: 13px;
-    margin-bottom: 26px;
+    margin-bottom: 30px;
   }
-  .badge .dot {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--success);
-    margin-right: 8px;
-    vertical-align: middle;
-    animation: pulse 2s infinite;
+  .eyebrow::before, .eyebrow::after {
+    content: "";
+    width: 28px; height: 1px; background: var(--line);
   }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-
   h1 {
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -1px;
-    margin-bottom: 18px;
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-size: clamp(38px, 6.5vw, 68px);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 22px;
+    color: var(--text);
   }
-  h1 .grad {
-    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .hero p.lead {
-    font-size: clamp(16px, 2.4vw, 20px);
+  h1 .accent { color: var(--rose); font-style: italic; font-weight: 400; }
+  h1 .sparkle { display: inline-block; color: var(--sand); font-size: 0.6em; vertical-align: super; margin: 0 2px; }
+  .lead {
+    font-size: clamp(15px, 2vw, 18px);
     color: var(--text-dim);
-    max-width: 620px;
-    margin: 0 auto 36px;
+    max-width: 560px;
+    margin: 0 auto 40px;
   }
   .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
+    gap: 9px;
+    padding: 13px 28px;
+    border-radius: 999px;
+    font-size: 14.5px;
+    font-weight: 500;
     text-decoration: none;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+    transition: transform 0.2s, box-shadow 0.25s, background 0.25s, color 0.25s;
+    letter-spacing: 0.03em;
   }
   .btn-primary {
-    background: linear-gradient(135deg, var(--accent), #5b3fd6);
-    color: #fff;
-    box-shadow: 0 8px 24px rgba(124, 92, 255, 0.35);
+    background: var(--text);
+    color: var(--surface);
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(124, 92, 255, 0.5); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); background: #2f2b25; }
   .btn-ghost {
-    background: var(--card);
-    border-color: var(--card-border);
+    background: transparent;
+    border-color: var(--line);
     color: var(--text);
   }
-  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+  .btn-ghost:hover { background: var(--surface); border-color: var(--text-dim); }
 
-  /* sections */
-  section { padding: 80px 0; }
-  .section-head { margin-bottom: 44px; }
-  .section-tag {
+  /* ============ 通用区块 ============ */
+  section { padding: 90px 0; }
+  .section-head { margin-bottom: 50px; }
+  .section-label {
+    font-family: "Fraunces", "Noto Serif SC", serif;
     font-size: 13px;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent-2);
-    margin-bottom: 10px;
+    color: var(--rose);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: "";
+    flex: 0 0 40px;
+    height: 1px;
+    background: var(--line);
   }
   h2 {
+    font-family: "Fraunces", "Noto Serif SC", serif;
     font-size: clamp(26px, 4vw, 38px);
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--text);
   }
+  h2 em { color: var(--mauve); font-style: italic; font-weight: 400; }
 
-  /* about */
+  /* ============ 关于工房 ============ */
   .about-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 32px;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 28px;
     align-items: start;
   }
   .about-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
     border-radius: var(--radius);
-    padding: 30px;
+    padding: 36px;
+    box-shadow: var(--shadow-soft);
   }
-  .about-card p { color: var(--text-dim); margin-bottom: 14px; }
+  .about-card p { color: var(--text-dim); margin-bottom: 16px; font-size: 15px; }
   .about-card p:last-child { margin-bottom: 0; }
+  .about-card .drop {
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-size: 48px;
+    line-height: 0.9;
+    float: left;
+    margin: 6px 10px 0 0;
+    color: var(--rose);
+    font-weight: 500;
+  }
   .stats {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
   }
   .stat {
-    background: var(--card);
-    border: 1px solid var(--card-border);
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
     border-radius: var(--radius);
-    padding: 22px;
+    padding: 24px 18px;
     text-align: center;
+    box-shadow: var(--shadow-soft);
   }
   .stat .num {
-    font-size: 30px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent-2), var(--accent));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--text);
   }
-  .stat .label { font-size: 13px; color: var(--text-mute); margin-top: 4px; }
-  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+  .stat .label { font-size: 12.5px; color: var(--text-mute); margin-top: 4px; letter-spacing: 0.05em; }
+  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
 
-  /* skills */
+  /* ============ 技法标签 ============ */
   .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
   .tag {
-    padding: 8px 16px;
+    padding: 9px 18px;
     border-radius: 999px;
-    background: var(--card);
-    border: 1px solid var(--card-border);
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
     color: var(--text-dim);
-    font-size: 14px;
-    transition: all 0.2s;
+    font-size: 13.5px;
+    transition: all 0.25s;
+    letter-spacing: 0.03em;
   }
   .tag:hover {
     color: var(--text);
-    border-color: var(--accent);
+    border-color: var(--rose);
+    background: #F8F1EA;
     transform: translateY(-2px);
   }
 
-  /* projects */
-  .projects {
+  /* ============ 作品卡片 ============ */
+  .works {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 22px;
   }
-  .project {
-    background: var(--card);
-    border: 1px solid var(--card-border);
+  .work {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
     border-radius: var(--radius);
-    padding: 26px;
-    transition: transform 0.2s, border-color 0.2s;
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
   }
-  .project:hover { transform: translateY(-4px); border-color: rgba(124, 92, 255, 0.5); }
-  .project .icon {
-    width: 44px; height: 44px;
-    border-radius: 12px;
+  .work::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--rose), var(--sand));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .work:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--line); }
+  .work:hover::after { opacity: 1; }
+  .work .icon {
+    width: 46px; height: 46px;
+    border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px;
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, rgba(124,92,255,0.2), rgba(34,211,238,0.15));
+    margin-bottom: 18px;
+    background: #F3EBE0;
   }
-  .project h3 { font-size: 18px; margin-bottom: 8px; }
-  .project p { color: var(--text-dim); font-size: 14px; }
+  .work:nth-child(2) .icon { background: #E9EFE3; }
+  .work:nth-child(3) .icon { background: #E6EAF0; }
+  .work h3 {
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .work p { color: var(--text-dim); font-size: 14px; }
 
-  /* downloads */
+  /* ============ 下载卡片 ============ */
   .downloads {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 22px;
   }
   .dl-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
     border-radius: var(--radius);
-    padding: 26px;
+    padding: 28px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s, box-shadow 0.3s;
   }
-  .dl-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(34, 211, 238, 0.5);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-  }
-  .dl-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .dl-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .dl-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
   .dl-icon {
-    width: 48px; height: 48px;
-    border-radius: 12px;
+    width: 50px; height: 50px;
+    border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 24px;
-    background: linear-gradient(135deg, var(--accent), var(--accent-3));
+    font-size: 23px;
+    background: #F3EBE0;
+    flex-shrink: 0;
   }
-  .dl-title { font-size: 17px; font-weight: 600; }
-  .dl-meta { font-size: 12px; color: var(--text-mute); margin-top: 2px; }
-  .dl-desc { color: var(--text-dim); font-size: 14px; flex: 1; margin-bottom: 18px; }
+  .dl-title {
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .dl-meta { font-size: 12px; color: var(--text-mute); margin-top: 2px; letter-spacing: 0.03em; }
+  .dl-desc { color: var(--text-dim); font-size: 14px; flex: 1; margin-bottom: 20px; }
   .dl-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .dl-size { font-size: 12px; color: var(--text-mute); }
   .dl-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 9px 16px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent-2), #0ea5c4);
-    color: #06121a;
-    font-weight: 700; font-size: 13px;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--surface);
+    font-size: 13px;
+    font-weight: 500;
     text-decoration: none;
     border: none; cursor: pointer;
-    transition: transform 0.15s, filter 0.2s;
+    transition: transform 0.15s, background 0.2s;
+    letter-spacing: 0.03em;
   }
-  .dl-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+  .dl-btn:hover { transform: translateY(-1px); background: #2f2b25; }
   .dl-note {
-    margin-top: 24px;
-    padding: 14px 18px;
-    border-radius: 12px;
-    background: rgba(34, 211, 238, 0.06);
-    border: 1px solid rgba(34, 211, 238, 0.18);
+    margin-top: 30px;
+    padding: 18px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-2);
+    border: 1px dashed var(--line);
     color: var(--text-dim);
-    font-size: 13px;
+    font-size: 13.5px;
+  }
+  .dl-note code {
+    background: var(--surface);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: var(--clay);
   }
 
-  /* contact / footer */
+  /* ============ 页脚 ============ */
   footer {
-    border-top: 1px solid var(--card-border);
-    padding: 50px 0 40px;
+    border-top: 1px solid var(--line-soft);
+    padding: 60px 0 44px;
     text-align: center;
     color: var(--text-mute);
-    font-size: 14px;
+    font-size: 13.5px;
   }
-  .social { display: flex; gap: 16px; justify-content: center; margin-bottom: 18px; }
+  .footer-mark {
+    font-family: "Fraunces", "Noto Serif SC", serif;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .footer-mark .spark { color: var(--rose); }
+  .social { display: flex; gap: 14px; justify-content: center; margin: 20px 0; }
   .social a {
     width: 40px; height: 40px;
     border-radius: 50%;
-    background: var(--card);
-    border: 1px solid var(--card-border);
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
     display: flex; align-items: center; justify-content: center;
     color: var(--text-dim);
     text-decoration: none;
-    transition: all 0.2s;
+    font-size: 15px;
+    transition: all 0.25s;
   }
-  .social a:hover { color: var(--text); border-color: var(--accent); transform: translateY(-2px); }
+  .social a:hover { color: var(--text); border-color: var(--rose); transform: translateY(-2px); }
 
-  /* reveal */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  /* ============ 滚动浮现 ============ */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  ::selection { background: rgba(124, 92, 255, 0.4); }
+  ::selection { background: rgba(196, 160, 156, 0.35); color: var(--text); }
 </style>
 </head>
 <body>
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
-  <div class="bg-orb orb-3"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
 
   <nav>
     <div class="nav-inner">
-      <div class="logo">◆ 陈墨</div>
+      <div class="logo"><span class="spark">✦</span>梅露可魔法工房</div>
       <ul class="nav-links">
-        <li><a href="#about">关于</a></li>
-        <li><a href="#skills">技能</a></li>
-        <li><a href="#projects">作品</a></li>
-        <li><a href="#downloads">下载</a></li>
+        <li><a href="#about">工房</a></li>
+        <li><a href="#skills">技法</a></li>
+        <li><a href="#works">作品</a></li>
+        <li><a href="#downloads">出品</a></li>
         <li><a href="#contact">联系</a></li>
       </ul>
     </div>
@@ -366,12 +457,12 @@
 
   <header class="hero">
     <div class="container">
-      <span class="badge"><span class="dot"></span>正在接受新的合作与委托</span>
-      <h1>你好，我是 <span class="grad">陈墨</span><br/>独立开发者 & 产品创作者</h1>
-      <p class="lead">专注于打造简洁、高效、有温度的数字产品。从桌面工具到 Web 应用，用代码把想法变成可被使用的现实。</p>
+      <div class="eyebrow">Meruko's Magic Atelier</div>
+      <h1>在日常里，<br/>调制一点<span class="sparkle">✦</span><span class="accent">小小的魔法</span></h1>
+      <p class="lead">这里是梅露可魔法工房——独立开发的创意工具、手作作品，与可以打包带走的小物件。愿它们为你的日子添一丝温柔的光泽。</p>
       <div class="hero-actions">
-        <a href="#downloads" class="btn btn-primary">⬇ 浏览可下载产品</a>
-        <a href="#projects" class="btn btn-ghost">查看作品集 →</a>
+        <a href="#downloads" class="btn btn-primary">逛逛工坊出品</a>
+        <a href="#works" class="btn btn-ghost">看看手作作品 →</a>
       </div>
     </div>
   </header>
@@ -379,20 +470,20 @@
   <section id="about">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-tag">ABOUT</div>
-        <h2>关于我</h2>
+        <div class="section-label">About</div>
+        <h2>关于<em>工房</em></h2>
       </div>
       <div class="about-grid">
         <div class="about-card reveal">
-          <p>我是一名拥有 8 年经验的全栈独立开发者，热衷于将复杂的需求拆解为优雅的解决方案。过去几年里，我发布了多款桌面与 Web 产品，累计服务超过 50,000 名用户。</p>
-          <p>我相信好的产品应当「打开即用」——不需要教程，没有多余的步骤。无论是效率工具、创意软件还是行业应用，我都追求同样的标准：稳定、快速、令人愉悦。</p>
-          <p>工作之余，我会写技术博客、参与开源项目，并在这个页面分享我做的软件，欢迎自由下载使用。</p>
+          <p><span class="drop">梅</span>露可魔法工房是一间藏在屏幕后的小小造物间。主人梅露可用代码当原料、以审美为火候，把那些「要是有这样一个东西就好了」的念头，慢慢熬成真正能用的软件与作品。</p>
+          <p>工房相信：好的工具应当安静、克制、不打扰。它不需要你学习，而是在你需要的时候刚好出现——就像口袋里一块恰好融化的糖。</p>
+          <p>这里的每一件出品都由工房独立完成，免费分享。若它们能为你省下一点时间、带来一刻好心情，便是这间工房存在的意义。</p>
         </div>
         <div class="stats reveal">
-          <div class="stat"><div class="num">8+</div><div class="label">年开发经验</div></div>
-          <div class="stat"><div class="num">12</div><div class="label">已发布产品</div></div>
-          <div class="stat"><div class="num">50K+</div><div class="label">累计用户</div></div>
-          <div class="stat"><div class="num">99%</div><div class="label">好评率</div></div>
+          <div class="stat"><div class="num">8+</div><div class="label">年造物经验</div></div>
+          <div class="stat"><div class="num">12</div><div class="label">件已出品</div></div>
+          <div class="stat"><div class="num">50K+</div><div class="label">位使用者</div></div>
+          <div class="stat"><div class="num">∞</div><div class="label">份用心</div></div>
         </div>
       </div>
     </div>
@@ -401,8 +492,8 @@
   <section id="skills">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-tag">SKILLS</div>
-        <h2>技能栈</h2>
+        <div class="section-label">Craft</div>
+        <h2>工房<em>技法</em></h2>
       </div>
       <div class="skill-tags reveal">
         <span class="tag">JavaScript / TypeScript</span>
@@ -411,37 +502,37 @@
         <span class="tag">Electron</span>
         <span class="tag">Python</span>
         <span class="tag">Go</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Docker</span>
         <span class="tag">UI / UX 设计</span>
         <span class="tag">产品设计</span>
+        <span class="tag">品牌视觉</span>
+        <span class="tag">动效设计</span>
         <span class="tag">系统架构</span>
-        <span class="tag">性能优化</span>
+        <span class="tag">性能调优</span>
       </div>
     </div>
   </section>
 
-  <section id="projects">
+  <section id="works">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-tag">PROJECTS</div>
-        <h2>精选作品</h2>
+        <div class="section-label">Works</div>
+        <h2>手作<em>作品</em></h2>
       </div>
-      <div class="projects">
-        <div class="project reveal">
-          <div class="icon">⚡</div>
-          <h3>QuickFlow</h3>
-          <p>极简的任务与时间管理工具，帮助团队把注意力聚焦在真正重要的事情上。</p>
+      <div class="works">
+        <div class="work reveal">
+          <div class="icon">⏳</div>
+          <h3>时之砂 QuickFlow</h3>
+          <p>帮助你把注意力安放在真正重要之事上的时间管理小工具，安静地陪你完成每一件事。</p>
         </div>
-        <div class="project reveal">
+        <div class="work reveal">
           <div class="icon">🎨</div>
-          <h3>Palette Studio</h3>
-          <p>为设计师打造的智能配色与素材管理桌面应用，支持 AI 辅助生成色板。</p>
+          <h3>调色盘 Palette Studio</h3>
+          <p>为创作者调配的配色与素材管理应用，像在调色板上轻轻一搅，便能得到和谐的色彩。</p>
         </div>
-        <div class="project reveal">
-          <div class="icon">📊</div>
-          <h3>DataLens</h3>
-          <p>轻量级数据可视化平台，拖拽即可生成交互式仪表盘，支持多种数据源。</p>
+        <div class="work reveal">
+          <div class="icon">🔮</div>
+          <h3>数据水晶 DataLens</h3>
+          <p>把杂乱的数据炼成清晰可读的仪表盘，轻轻拖拽，洞见便如水晶般浮现眼前。</p>
         </div>
       </div>
     </div>
@@ -450,66 +541,67 @@
   <section id="downloads">
     <div class="container">
       <div class="section-head reveal">
-        <div class="section-tag">DOWNLOADS</div>
-        <h2>产品与软件下载</h2>
+        <div class="section-label">Goods</div>
+        <h2>工坊<em>出品</em> · 可带走的小物件</h2>
       </div>
-      <div class="downloads" id="downloadList">
-        <!-- cards injected by JS -->
-      </div>
+      <div class="downloads" id="downloadList"></div>
       <div class="dl-note reveal">
-        💡 以上为示例产品文件。你可以将自己的软件安装包、文档等放入站点的 <code>downloads/</code> 目录，并在页面列表中添加对应的卡片，访客即可直接下载。
+        ✦ 以上为工坊示例出品。你可以将自己的软件安装包、文档等放入站点的 <code>downloads/</code> 目录，并在页面脚本的产品列表里添加一张卡片，访客即可直接下载。
       </div>
     </div>
   </section>
 
   <footer id="contact">
     <div class="container">
-      <div class="social reveal">
+      <div class="footer-mark">梅露可魔法工房 <span class="spark">✦</span></div>
+      <p>用一点代码，与很多很多的心意调制而成。</p>
+      <div class="social">
         <a href="mailto:hello@example.com" title="邮箱">✉</a>
         <a href="#" title="GitHub">⌥</a>
         <a href="#" title="微博">◐</a>
         <a href="#" title="RSS">≡</a>
       </div>
-      <p>© 2026 陈墨 · 独立开发者主页 · 用 ❤ 打造</p>
+      <p>© 2026 梅露可魔法工房 · Meruko's Magic Atelier</p>
     </div>
   </footer>
 
 <script>
-  // download product list — edit this array to add / remove products
+  // 工坊出品列表 —— 在此增删卡片即可
   const products = [
     {
-      icon: "⚡",
-      title: "QuickFlow 桌面版",
+      icon: "⏳",
+      title: "时之砂 QuickFlow",
       version: "v1.2.0",
       platform: "Windows · macOS",
-      desc: "极简任务与时间管理工具，本地优先、开箱即用。本压缩包内含完整程序与使用说明。",
+      desc: "工房出品的时间管理小工具，本地优先、开箱即用。压缩包内含完整程序与使用说明，解压即可运行。",
       file: "downloads/quickflow-v1.2.0.zip",
       size: "2.4 MB"
     },
     {
-      icon: "📘",
-      title: "产品使用手册",
+      icon: "📜",
+      title: "工坊手帖 · 使用手册",
       version: "2026 版",
-      platform: "PDF 文档",
-      desc: "全部已发布产品的功能说明与常见问题解答，适合新用户快速上手。",
+      platform: "Markdown 文档",
+      desc: "全部出品的功能说明与常见问题解答，适合初次来访的朋友快速了解每一件小物件的用法。",
       file: "downloads/product-manual.md",
       size: "12 KB"
     },
     {
-      icon: "🔄",
-      title: "更新日志",
+      icon: "🪶",
+      title: "造物日志",
       version: "最新",
-      platform: "文本",
-      desc: "记录每个版本的新功能、改进与修复，透明公开产品演进过程。",
+      platform: "纯文本",
+      desc: "记录每件出品的新功能、打磨与修复，透明公开工房的每一步演进，欢迎围观造物过程。",
       file: "downloads/changelog.txt",
       size: "3 KB"
     }
   ];
 
   const list = document.getElementById("downloadList");
-  products.forEach(p => {
+  products.forEach((p, i) => {
     const card = document.createElement("div");
     card.className = "dl-card reveal";
+    card.style.transitionDelay = (i * 0.08) + "s";
     card.innerHTML = `
       <div class="dl-head">
         <div class="dl-icon">${p.icon}</div>
@@ -521,13 +613,13 @@
       <div class="dl-desc">${p.desc}</div>
       <div class="dl-footer">
         <span class="dl-size">${p.size}</span>
-        <a class="dl-btn" href="${p.file}" download>⬇ 下载</a>
+        <a class="dl-btn" href="${p.file}" download>下载 ↓</a>
       </div>
     `;
     list.appendChild(card);
   });
 
-  // scroll reveal
+  // 滚动浮现 + 观测后续插入的卡片
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
